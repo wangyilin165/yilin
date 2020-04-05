@@ -1,4 +1,5 @@
 import pytest
+import sys
 from python.calc import Calc
 
 '''
@@ -55,7 +56,11 @@ class TestCalc():
 
     @pytest.mark.parametrize("a,b,result", test_div_date)
     def test_div(self, a, b, result):
-        assert self.calc.div(a, b) == result
+        if b == 0:
+            with pytest.raises(ZeroDivisionError):
+                self.calc.div(a, b)
+        else:
+            assert self.calc.div(a, b) == result
 
 
 if __name__ == '__main__':
